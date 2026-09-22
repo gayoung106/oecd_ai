@@ -1,0 +1,19 @@
+project:
+  name: oecd_aim_collector_v2
+source:
+  base_url: "https://oecd.ai/en/incidents"
+  from_date: "1900-01-01"
+  to_date: null
+  num_results: 100
+  order_by: "date"
+crawl:
+  timeout_seconds: 45
+  delay_seconds: 1.0
+  max_retries: 5
+  backoff_factor: 1.5
+  user_agent: "AcademicResearch-OECD-AIM-Collector/2.0 (non-commercial research)"
+  save_search_html_gzip: true
+  resume: true
+output:
+  csv: true
+  parquet: true
