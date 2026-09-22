@@ -1,0 +1,70 @@
+{
+  "project": "OECD AIM Collector v2",
+  "started_at_utc": "2026-09-22T03:50:57.974106+00:00",
+  "finished_at_utc": "2026-09-22T04:26:38.852152+00:00",
+  "source_url": "https://oecd.ai/en/incidents",
+  "source_period": {
+    "from_date": "1900-01-01",
+    "to_date": null
+  },
+  "rows_exported": 17155,
+  "columns": [
+    "incident_id",
+    "url",
+    "title",
+    "date",
+    "country",
+    "summary",
+    "article_count",
+    "ai_principles",
+    "industries",
+    "affected_stakeholders",
+    "harm_types",
+    "business_function",
+    "autonomy_level",
+    "ai_system_task",
+    "classification_reason",
+    "incident_or_hazard",
+    "collected_at_utc",
+    "source_range_start",
+    "source_range_end"
+  ],
+  "stats": {
+    "ranges_requested": 531,
+    "ranges_split": 265,
+    "ranges_skipped": 0,
+    "single_day_overflows": 0,
+    "http_failures": 0
+  },
+  "config_snapshot": {
+    "project": {
+      "name": "oecd_aim_collector_v2"
+    },
+    "source": {
+      "base_url": "https://oecd.ai/en/incidents",
+      "from_date": "1900-01-01",
+      "to_date": null,
+      "num_results": 100,
+      "order_by": "date"
+    },
+    "crawl": {
+      "timeout_seconds": 45,
+      "delay_seconds": 1.0,
+      "max_retries": 5,
+      "backoff_factor": 1.5,
+      "user_agent": "AcademicResearch-OECD-AIM-Collector/2.0 (non-commercial research)",
+      "save_search_html_gzip": true,
+      "resume": true
+    },
+    "output": {
+      "csv": true,
+      "parquet": true
+    }
+  },
+  "python_version": "3.13.3",
+  "sha256": {
+    "data\\processed\\oecd_aim_incidents.csv": "04bce585117778083d2d7d31e906111aa41d0146b9ffe93f381cbe8c865c79d6",
+    "data\\processed\\oecd_aim_incidents.parquet": "2237461861da4d7ef1f671217a15a551c1433369e9da25346ff246e65c7cc0ba",
+    "data\\logs\\range_log.jsonl": "52d6f3999236d33042359af7a13da5d95d0292a29cf699cb38e1abdc8b492c22"
+  }
+}
