@@ -1,0 +1,49 @@
+{
+  "snapshot_name": "frozen_snapshot_20260929_candidate",
+  "created_at_utc": "2026-09-29T13:20:26.373524+00:00",
+  "status": "FAIL",
+  "dataset": {
+    "rows": 17315,
+    "columns": [
+      "incident_id",
+      "url",
+      "title",
+      "date",
+      "country",
+      "summary",
+      "article_count",
+      "ai_principles",
+      "industries",
+      "affected_stakeholders",
+      "harm_types",
+      "business_function",
+      "autonomy_level",
+      "ai_system_task",
+      "classification_reason",
+      "incident_or_hazard",
+      "collected_at_utc",
+      "source_range_start",
+      "source_range_end",
+      "category_collection_status",
+      "category_collection_error"
+    ],
+    "incident_date_min": "2020-01-01",
+    "incident_date_max": "2026-09-27",
+    "source_range_start": "1900-01-01",
+    "source_range_end": "2026-09-28",
+    "complete_category_rows": 17285,
+    "partial_category_rows": 30
+  },
+  "validation_report": "validation_report.json",
+  "artifacts_sha256": {
+    "category_inventory.csv": "6e98cfc59f082641a4d8a58cfda4836cabf17c6a6ca11fb4944286dd9f1ce767",
+    "collector_manifest.json": "a7af419763b238b7cf745f8f289c8f543d1061981b513d04e0319328442be64c",
+    "missingness_report.csv": "98eb49daf3914159627b23c78e64735823f1b570cab40e527591c4914e46d5d8",
+    "oecd_aim_incidents.csv": "8ca9103b17260f03b3d29456cff86ea0cc5102639e38f6f2cd4a97fc655d146e",
+    "oecd_aim_incidents.parquet": "9c6d675471d0b60306d8acbc27a6645b096bbd201dc638f8b62ae941f87536e0",
+    "partial_detail_not_found.csv": "7985fb64213c05c4493a93c33496b9ac81d746a5a513d952296765f76c0cbb93",
+    "range_log.jsonl": "3b455867a6fb7b01ef05d93fa4ff3e7e575a20edb7a82577fa8b6d24f7db6b2a",
+    "source_range_audit.csv": "9acd2a38e8dfda6b74a1e0ab0334eae9f29e6b0a42de99ece9578bb57604164b",
+    "validation_report.json": "90706716571708970e2685b799409b05e0671557955a1616dca7acaa3c6560e9"
+  }
+}

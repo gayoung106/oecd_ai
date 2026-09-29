@@ -1,0 +1,240 @@
+{
+  "generated_at_utc": "2026-09-29T13:20:26.224668+00:00",
+  "status": "FAIL",
+  "summary": {
+    "checks_total": 18,
+    "passed": 15,
+    "warnings": 2,
+    "failed": 1,
+    "rows": 17315,
+    "date_min": "2020-01-01",
+    "date_max": "2026-09-27"
+  },
+  "checks": [
+    {
+      "name": "row_count_match",
+      "status": "pass",
+      "message": "CSV and Parquet row counts must match.",
+      "metrics": {
+        "csv_rows": 17315,
+        "parquet_rows": 17315
+      }
+    },
+    {
+      "name": "column_order_match",
+      "status": "pass",
+      "message": "CSV and Parquet columns and order must match.",
+      "metrics": {
+        "csv_columns": [
+          "incident_id",
+          "url",
+          "title",
+          "date",
+          "country",
+          "summary",
+          "article_count",
+          "ai_principles",
+          "industries",
+          "affected_stakeholders",
+          "harm_types",
+          "business_function",
+          "autonomy_level",
+          "ai_system_task",
+          "classification_reason",
+          "incident_or_hazard",
+          "collected_at_utc",
+          "source_range_start",
+          "source_range_end",
+          "category_collection_status",
+          "category_collection_error"
+        ],
+        "parquet_columns": [
+          "incident_id",
+          "url",
+          "title",
+          "date",
+          "country",
+          "summary",
+          "article_count",
+          "ai_principles",
+          "industries",
+          "affected_stakeholders",
+          "harm_types",
+          "business_function",
+          "autonomy_level",
+          "ai_system_task",
+          "classification_reason",
+          "incident_or_hazard",
+          "collected_at_utc",
+          "source_range_start",
+          "source_range_end",
+          "category_collection_status",
+          "category_collection_error"
+        ]
+      }
+    },
+    {
+      "name": "csv_parquet_content_match",
+      "status": "pass",
+      "message": "CSV and Parquet values must match after type normalization.",
+      "metrics": {}
+    },
+    {
+      "name": "required_columns_present",
+      "status": "pass",
+      "message": "Required columns must be present.",
+      "metrics": {
+        "missing_columns": []
+      }
+    },
+    {
+      "name": "required_values_present",
+      "status": "pass",
+      "message": "Required identifiers, URLs, titles, and dates must be populated.",
+      "metrics": {
+        "missing_counts": {
+          "incident_id": 0,
+          "url": 0,
+          "title": 0,
+          "date": 0
+        }
+      }
+    },
+    {
+      "name": "incident_ids_unique",
+      "status": "pass",
+      "message": "Incident IDs must be unique.",
+      "metrics": {
+        "duplicate_count": 0
+      }
+    },
+    {
+      "name": "incident_url_matches_id",
+      "status": "pass",
+      "message": "Each incident URL must end with its incident ID.",
+      "metrics": {
+        "mismatch_count": 0
+      }
+    },
+    {
+      "name": "dates_valid",
+      "status": "pass",
+      "message": "All incident dates must use YYYY-MM-DD.",
+      "metrics": {
+        "invalid_count": 0,
+        "min_date": "2020-01-01",
+        "max_date": "2026-09-27"
+      }
+    },
+    {
+      "name": "no_category_ui_tokens",
+      "status": "pass",
+      "message": "Category columns must not contain Show More or Show Less UI text.",
+      "metrics": {
+        "hit_counts": {
+          "ai_principles": 0,
+          "industries": 0,
+          "harm_types": 0,
+          "business_function": 0,
+          "ai_system_task": 0,
+          "affected_stakeholders": 0
+        }
+      }
+    },
+    {
+      "name": "no_duplicate_category_tokens",
+      "status": "fail",
+      "message": "A category value must not repeat within one incident field.",
+      "metrics": {
+        "duplicate_row_counts": {
+          "ai_principles": 0,
+          "industries": 23,
+          "harm_types": 0,
+          "business_function": 0,
+          "ai_system_task": 0,
+          "affected_stakeholders": 0
+        }
+      }
+    },
+    {
+      "name": "category_statuses_resolved",
+      "status": "pass",
+      "message": "No rows may remain retryable or have an unknown category collection status.",
+      "metrics": {
+        "status_counts": {
+          "complete": 17285,
+          "partial_detail_not_found": 30
+        },
+        "unknown_statuses": []
+      }
+    },
+    {
+      "name": "detail_pages_available",
+      "status": "warning",
+      "message": "Some OECD detail pages return 404; visible search-card categories are retained.",
+      "metrics": {
+        "partial_detail_not_found": 30
+      }
+    },
+    {
+      "name": "manifest_row_count_match",
+      "status": "pass",
+      "message": "Collector manifest row count must match the snapshot.",
+      "metrics": {
+        "manifest_rows": 17315,
+        "snapshot_rows": 17315
+      }
+    },
+    {
+      "name": "collector_hashes_match",
+      "status": "pass",
+      "message": "Collector manifest hashes must match current processed files.",
+      "metrics": {
+        "csv_match": true,
+        "parquet_match": true
+      }
+    },
+    {
+      "name": "source_range_tree_complete",
+      "status": "pass",
+      "message": "The latest full collection range tree must contain only successful terminal ranges.",
+      "metrics": {
+        "root_start": "1900-01-01",
+        "root_end": "2026-09-28",
+        "terminal_ranges": 268,
+        "missing_tree_nodes": [],
+        "non_success_terminal_ranges": 0,
+        "missing_raw_html_ranges": 0,
+        "html_parse_mismatch_ranges": 0,
+        "reported_parse_mismatch_ranges": 188,
+        "terminal_parsed_total": 17315
+      }
+    },
+    {
+      "name": "source_html_matches_parser",
+      "status": "pass",
+      "message": "Each terminal range parsed count must match its saved HTML unique incident links.",
+      "metrics": {
+        "missing_raw_html_ranges": 0,
+        "mismatch_ranges": 0
+      }
+    },
+    {
+      "name": "source_total_matches_dataset",
+      "status": "pass",
+      "message": "Terminal range parsed totals must equal snapshot rows.",
+      "metrics": {
+        "terminal_parsed_total": 17315,
+        "snapshot_rows": 17315
+      }
+    },
+    {
+      "name": "source_reported_counts_match",
+      "status": "warning",
+      "message": "OECD reported result counts differ from rendered unique incident links in some ranges; saved HTML and parsed rows still match.",
+      "metrics": {
+        "mismatch_ranges": 188
+      }
+    }
+  ]
+}
