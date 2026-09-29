@@ -13,6 +13,8 @@ crawl:
   backoff_factor: 1.5
   user_agent: "AcademicResearch-OECD-AIM-Collector/2.0 (non-commercial research)"
   save_search_html_gzip: true
+  save_detail_html_gzip: true
+  fetch_detail_for_collapsed_categories: true
   resume: true
 output:
   csv: true

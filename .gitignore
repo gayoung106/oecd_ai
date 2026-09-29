@@ -1,6 +1,6 @@
 # .venv/
-# __pycache__/
-# *.pyc
+__pycache__/
+*.pyc
 # data/raw/search_pages/
 # data/processed/
 # data/logs/
