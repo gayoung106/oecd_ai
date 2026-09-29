@@ -1,13 +1,13 @@
 {
   "project": "OECD AIM Collector v2",
-  "started_at_utc": "2026-09-22T03:50:57.974106+00:00",
-  "finished_at_utc": "2026-09-22T04:26:38.852152+00:00",
+  "started_at_utc": "2026-09-29T09:44:14.377634+00:00",
+  "finished_at_utc": "2026-09-29T09:45:22.441223+00:00",
   "source_url": "https://oecd.ai/en/incidents",
   "source_period": {
     "from_date": "1900-01-01",
     "to_date": null
   },
-  "rows_exported": 17155,
+  "rows_exported": 17315,
   "columns": [
     "incident_id",
     "url",
@@ -27,14 +27,20 @@
     "incident_or_hazard",
     "collected_at_utc",
     "source_range_start",
-    "source_range_end"
+    "source_range_end",
+    "category_collection_status",
+    "category_collection_error"
   ],
   "stats": {
-    "ranges_requested": 531,
-    "ranges_split": 265,
+    "ranges_requested": 0,
+    "ranges_cached": 31,
+    "ranges_split": 0,
     "ranges_skipped": 0,
     "single_day_overflows": 0,
-    "http_failures": 0
+    "http_failures": 0,
+    "detail_pages_requested": 30,
+    "detail_not_found": 30,
+    "detail_failures": 0
   },
   "config_snapshot": {
     "project": {
@@ -54,17 +60,30 @@
       "backoff_factor": 1.5,
       "user_agent": "AcademicResearch-OECD-AIM-Collector/2.0 (non-commercial research)",
       "save_search_html_gzip": true,
-      "resume": true
+      "save_detail_html_gzip": true,
+      "fetch_detail_for_collapsed_categories": true,
+      "resume": true,
+      "retry_incomplete_only": true
     },
     "output": {
       "csv": true,
       "parquet": true
     }
   },
-  "python_version": "3.13.3",
+  "python_version": "3.10.5",
   "sha256": {
-    "data\\processed\\oecd_aim_incidents.csv": "04bce585117778083d2d7d31e906111aa41d0146b9ffe93f381cbe8c865c79d6",
-    "data\\processed\\oecd_aim_incidents.parquet": "2237461861da4d7ef1f671217a15a551c1433369e9da25346ff246e65c7cc0ba",
-    "data\\logs\\range_log.jsonl": "52d6f3999236d33042359af7a13da5d95d0292a29cf699cb38e1abdc8b492c22"
-  }
+    "data\\processed\\oecd_aim_incidents.csv": "dea26498a2605f75e95e94b7f1922adb6fbdffcec9a76e3c69b0b5888bde35a5",
+    "data\\processed\\oecd_aim_incidents.parquet": "c3fa90efbe71bf008370cc0051037c520dd46d6292023a562d36c519cf9f209f",
+    "data\\logs\\range_log.jsonl": "3b455867a6fb7b01ef05d93fa4ff3e7e575a20edb7a82577fa8b6d24f7db6b2a",
+    "output\\category_normalization_log.csv": "9049d09bf12dd60bc9c3d12701343e4f77bac6dc693f2d6c232aef7a130ba2f4"
+  },
+  "post_collection_transforms": [
+    {
+      "name": "deduplicate_category_tokens",
+      "applied_at_utc": "2026-09-29T13:22:57.932370+00:00",
+      "changed_rows": 23,
+      "changed_cells": 23,
+      "audit_log": "output\\category_normalization_log.csv"
+    }
+  ]
 }

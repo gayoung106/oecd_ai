@@ -1,0 +1,81 @@
+﻿column,value,incident_count,share_all_incidents_pct,share_populated_rows_pct
+ai_principles,Accountability,12547,72.4632,75.598
+ai_principles,Transparency & explainability,10701,61.8019,64.4755
+ai_principles,Respect of human rights,10059,58.0941,60.6073
+ai_principles,Safety,9986,57.6725,60.1675
+ai_principles,Robustness & digital security,8932,51.5853,53.817
+ai_principles,Privacy & data governance,7254,41.8943,43.7067
+ai_principles,Democracy & human autonomy,6612,38.1865,39.8385
+ai_principles,Human wellbeing,4123,23.8117,24.8418
+ai_principles,Fairness,2895,16.7196,17.4429
+ai_principles,Sustainability,242,1.3976,1.4581
+industries,"Government, security, and defence",6862,39.6304,39.7038
+industries,"Media, social platforms, and marketing",6013,34.7271,34.7914
+industries,Digital security,5551,32.0589,32.1183
+industries,Mobility and autonomous vehicles,2432,14.0456,14.0716
+industries,IT infrastructure and hosting,1986,11.4698,11.4911
+industries,"Robots, sensors, and IT hardware",1761,10.1704,10.1892
+industries,Financial and insurance services,1456,8.4089,8.4245
+industries,Consumer services,1281,7.3982,7.4119
+industries,"Healthcare, drugs, and biotechnology",1067,6.1623,6.1737
+industries,Education and training,595,3.4363,3.4427
+industries,Consumer products,563,3.2515,3.2575
+industries,"Arts, entertainment, and recreation",557,3.2169,3.2228
+industries,"Logistics, wholesale, and retail",432,2.4949,2.4996
+industries,Business processes and support services,397,2.2928,2.2971
+industries,General or personal use,246,1.4207,1.4234
+industries,"Energy, raw materials, and utilities",245,1.415,1.4176
+industries,Environmental services,226,1.3052,1.3076
+industries,Real estate,193,1.1146,1.1167
+industries,"Travel, leisure, and hospitality",180,1.0396,1.0415
+industries,Other,104,0.6006,0.6017
+industries,Food and beverages,65,0.3754,0.3761
+industries,Construction and air conditioning,42,0.2426,0.243
+industries,Agriculture,30,0.1733,0.1736
+harm_types,Human or fundamental rights,8835,51.0251,54.2824
+harm_types,Public interest,6678,38.5677,41.0297
+harm_types,Economic/Property,6547,37.8111,40.2249
+harm_types,Reputational,6527,37.6956,40.102
+harm_types,Psychological,5777,33.3641,35.494
+harm_types,Physical (injury),3222,18.6081,19.796
+harm_types,Physical (death),2894,16.7138,17.7808
+harm_types,Environmental,343,1.9809,2.1074
+harm_types,Other,57,0.3292,0.3502
+harm_types,In other databases,2,0.0116,0.0123
+harm_types,Open in,2,0.0116,0.0123
+business_function,Monitoring and quality control,2499,14.4326,25.1282
+business_function,Research and development,2110,12.186,21.2167
+business_function,Marketing and advertisement,1592,9.1943,16.008
+business_function,Compliance and justice,1586,9.1597,15.9477
+business_function,ICT management and information security,1526,8.8132,15.3444
+business_function,Other,1524,8.8016,15.3243
+business_function,Citizen/customer service,1128,6.5146,11.3424
+business_function,Logistics,389,2.2466,3.9115
+business_function,Manufacturing,358,2.0676,3.5998
+business_function,Human resource management,223,1.2879,2.2423
+business_function,Maintenance,161,0.9298,1.6189
+business_function,Sales,155,0.8952,1.5586
+business_function,Planning and budgeting,127,0.7335,1.277
+business_function,Accounting,85,0.4909,0.8547
+business_function,Procurement,34,0.1964,0.3419
+ai_system_task,Content generation,7159,41.3457,43.2176
+ai_system_task,Recognition/object detection,5828,33.6587,35.1826
+ai_system_task,Goal-driven organisation,4117,23.7771,24.8536
+ai_system_task,Reasoning with knowledge structures/planning,2293,13.2429,13.8424
+ai_system_task,Interaction support/chatbots,2289,13.2198,13.8183
+ai_system_task,Event/anomaly detection,2222,12.8328,13.4138
+ai_system_task,Organisation/recommenders,1628,9.4023,9.828
+ai_system_task,Forecasting/prediction,1370,7.9122,8.2704
+ai_system_task,In other databases,956,5.5212,5.7712
+ai_system_task,Open in,956,5.5212,5.7712
+ai_system_task,Other,770,4.447,4.6484
+affected_stakeholders,General public,8049,46.4857,51.0432
+affected_stakeholders,Consumers,4449,25.6945,28.2136
+affected_stakeholders,Business,2338,13.5027,14.8266
+affected_stakeholders,Government,1969,11.3716,12.4865
+affected_stakeholders,Workers,1805,10.4245,11.4465
+affected_stakeholders,Children,1489,8.5995,9.4426
+affected_stakeholders,Other,802,4.6318,5.0859
+affected_stakeholders,Women,738,4.2622,4.6801
+affected_stakeholders,Civil society,434,2.5065,2.7522
+affected_stakeholders,Trade unions,14,0.0809,0.0888

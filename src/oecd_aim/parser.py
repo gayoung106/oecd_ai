@@ -27,6 +27,7 @@ INCIDENT_HREF_RE = re.compile(r'^/en/incidents/(\d{4}-\d{2}-\d{2}-[A-Za-z0-9_-]+
 DATE_RE = re.compile(r'\b(?:19|20)\d{2}-\d{2}-\d{2}\b')
 ARTICLE_RE = re.compile(r'\b(\d[\d,]*)\s+articles?\b', re.I)
 RESULT_COUNT_RE = re.compile(r'Results:\s*(?:About\s*)?([\d,]+)\s+incidents?\s*&\s*hazards?', re.I)
+SHOW_MORE_LESS_RE = re.compile(r'^show\s+(?:more|less)(?:\s*\(\d+\))?$', re.I)
 LABELS = [
     'AI principles:', 'Industries:', 'Affected stakeholders:', 'Harm types:',
     'Business function:', 'Autonomy level:', 'AI system task:',
@@ -39,9 +40,41 @@ FIELD_BY_LABEL = {
     'AI system task:':'ai_system_task',
     "Why's our monitor labelling this an incident or hazard?":'classification_reason',
 }
+CATEGORY_FIELDS = {
+    'ai_principles',
+    'industries',
+    'affected_stakeholders',
+    'harm_types',
+    'business_function',
+    'ai_system_task',
+}
+DETAIL_FIELD_BY_LABEL = {
+    'AI principles':'ai_principles',
+    'AI principles:':'ai_principles',
+    'Industries':'industries',
+    'Industries:':'industries',
+    'Affected stakeholders':'affected_stakeholders',
+    'Affected stakeholders:':'affected_stakeholders',
+    'Harm types':'harm_types',
+    'Harm types:':'harm_types',
+    'Business function':'business_function',
+    'Business function:':'business_function',
+    'AI system task':'ai_system_task',
+    'AI system task:':'ai_system_task',
+}
+DETAIL_STOP_LABELS = {
+    'Articles about this incident or hazard',
+    "Why's our monitor labelling this an incident or hazard?",
+}
 
 def normalize_space(s):
     return re.sub(r'\s+', ' ', s or '').strip()
+
+def _is_ui_token(s):
+    return bool(SHOW_MORE_LESS_RE.fullmatch(normalize_space(s)))
+
+def _unique_values(values):
+    return list(dict.fromkeys(values))
 
 def parse_result_count(html):
     text = BeautifulSoup(html, 'lxml').get_text(' ', strip=True)
@@ -75,7 +108,7 @@ def _find_card(anchor: Tag):
             break
         text = node.get_text('\n', strip=True)
         hits = sum(1 for lab in LABELS if lab in text)
-        if hits >= 2 and DATE_RE.search(text):
+        if hits >= 1 and DATE_RE.search(text):
             best = node
             slugs = set()
             for x in node.find_all('a', href=True):
@@ -86,23 +119,50 @@ def _find_card(anchor: Tag):
                 return node
     return best
 
-def _line_tokens(card):
+def _line_tokens(card, keep_ui_tokens=False):
     lines = []
     for s in card.stripped_strings:
         t = normalize_space(str(s))
+        if _is_ui_token(t) and not keep_ui_tokens:
+            continue
         if t and (not lines or t != lines[-1]):
             lines.append(t)
     return lines
 
-def _extract_labeled(lines):
-    out = {v:None for v in FIELD_BY_LABEL.values()}
-    positions = [(i,t) for i,t in enumerate(lines) if t in FIELD_BY_LABEL]
+def _extract_labeled(lines, field_by_label=FIELD_BY_LABEL, stop_labels=None):
+    out = {v:None for v in field_by_label.values()}
+    labels = set(field_by_label)
+    positions = [(i,t) for i,t in enumerate(lines) if t in field_by_label]
     for j,(idx,lab) in enumerate(positions):
         end = positions[j+1][0] if j+1 < len(positions) else len(lines)
-        vals = [x for x in lines[idx+1:end] if x not in LABELS]
+        if stop_labels:
+            stop_positions = [i for i in range(idx+1, end) if lines[i] in stop_labels]
+            if stop_positions:
+                end = min(stop_positions)
+        vals = [x for x in lines[idx+1:end] if x not in labels and not _is_ui_token(x) and x != '* * *']
+        if field_by_label[lab] in CATEGORY_FIELDS:
+            vals = _unique_values(vals)
         sep = ' ' if lab.startswith("Why's") else ' | '
-        out[FIELD_BY_LABEL[lab]] = normalize_space(sep.join(vals)) or None
+        out[field_by_label[lab]] = normalize_space(sep.join(vals)) or None
     return out
+
+def _collapsed_category_fields(raw_lines):
+    collapsed = []
+    positions = [(i,t) for i,t in enumerate(raw_lines) if t in FIELD_BY_LABEL]
+    for j,(idx,lab) in enumerate(positions):
+        field = FIELD_BY_LABEL[lab]
+        if field not in CATEGORY_FIELDS:
+            continue
+        end = positions[j+1][0] if j+1 < len(positions) else len(raw_lines)
+        if any(_is_ui_token(x) for x in raw_lines[idx+1:end]):
+            collapsed.append(field)
+    return collapsed
+
+def parse_detail_categories(html):
+    soup = BeautifulSoup(html, 'lxml')
+    lines = _line_tokens(soup)
+    fields = _extract_labeled(lines, DETAIL_FIELD_BY_LABEL, DETAIL_STOP_LABELS)
+    return {k:v for k,v in fields.items() if v}
 
 def _infer_classification(reason):
     if not reason:
@@ -123,6 +183,7 @@ def parse_cards(html, base_url):
     rows = []
     for slug,url,a in incident_links(html, base_url):
         card = _find_card(a)
+        raw_lines = _line_tokens(card, keep_ui_tokens=True)
         lines = _line_tokens(card)
         text = ' '.join(lines)
         title = normalize_space(a.get_text(' ', strip=True))
@@ -182,9 +243,11 @@ def parse_cards(html, base_url):
                 country = COUNTRY_NAMES[token_lower]
                 break
         fields = _extract_labeled(lines)
+        collapsed_fields = _collapsed_category_fields(raw_lines)
         rows.append({
             'incident_id':slug, 'url':url, 'title':title, 'date':date,
             'country':country, 'summary':summary, 'article_count':article_count,
             **fields, 'incident_or_hazard':_infer_classification(fields.get('classification_reason')),
+            '_collapsed_category_fields':collapsed_fields,
         })
     return rows
